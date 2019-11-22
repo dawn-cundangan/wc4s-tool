@@ -23,9 +23,11 @@
     </nav>
     <div class="container-fluid row p-5 mt-5">
         <div class="container col-md-6">
+        <form action="{{URL::to('/search')}}"  role="search">
+
             <div class="row">
                 <div class="active-cyan-4 mb-4 col-sm-10">
-                    <input class="form-control" type="text" placeholder="Enter keywords" aria-label="Search">
+                    <input class="form-control" type="text" placeholder="Enter keywords" aria-label="Search" name="searchKeyword">
                 </div>
                 <div class="container col-sm-2 px-0">
                     <button type="button btn-block" class="btn btn-outline-info">Search</button>
