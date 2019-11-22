@@ -4,16 +4,15 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    
     <title>ScreenFlow</title>
     <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
 
-    <!-- temp only because scss is not working -->
-    <style>
-    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -32,32 +31,34 @@
                     <button type="button btn-block" class="btn btn-outline-info">Search</button>
                 </div>
             </div>
-            <table class="table table-hover table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Screen ID</th>
-                        <th scope="col">Screen Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>TD_Copy_Something_Something</td>
-                        <td>Copy</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>TS_Send_This_That</td>
-                        <td>Send</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>FX_Fax_Ni_Shimasu</td>
-                        <td>Fax</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="container scrollbar-near-moon p-0" style="overflow-y:auto; max-height:57vh;">
+                <table class="table table-hover table-sm" id="searchResult">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Screen ID</th>
+                            <th scope="col">Screen Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>TD_Copy_Something_Something</td>
+                            <td>Copy</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>TS_Send_This_That</td>
+                            <td>Send</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>FX_Fax_Ni_Shimasu</td>
+                            <td>Fax</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="container col-md-6">
             <div class="accordion" id="accordionExample">

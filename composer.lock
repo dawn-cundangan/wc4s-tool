@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "94d4bf9ac7f4a933030e46a346ee2917",
+    "content-hash": "afa1b40529db3595aacbfcd45ee295b4",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1116,6 +1116,48 @@
                 "type"
             ],
             "time": "2019-11-06T22:27:00+00:00"
+        },
+        {
+            "name": "prewk/xml-string-streamer",
+            "version": "0.11.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/prewk/xml-string-streamer.git",
+                "reference": "8c0a6d1d067e0206657f6345c0841a9d234c14fa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/prewk/xml-string-streamer/zipball/8c0a6d1d067e0206657f6345c0841a9d234c14fa",
+                "reference": "8c0a6d1d067e0206657f6345c0841a9d234c14fa",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.8.0",
+                "phpunit/phpunit": "^4.8 || ^5.7.21",
+                "prewk/xml-faker": "^0.0.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Prewk\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "prewk",
+                    "email": "oskar.thornblad@gmail.com"
+                }
+            ],
+            "description": "Stream large XML files with low memory consumption",
+            "homepage": "https://github.com/prewk/xml-string-streamer",
+            "time": "2019-10-25T14:56:01+00:00"
         },
         {
             "name": "psr/container",
