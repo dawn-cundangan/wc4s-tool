@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+ 
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>     
+    <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ asset('js/display.js') }}"></script>
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -23,14 +28,12 @@
     </nav>
     <div class="container-fluid row p-5 mt-5">
         <div class="container col-md-6">
-        <form action="{{URL::to('/search')}}"  role="search">
-
             <div class="row">
                 <div class="active-cyan-4 mb-4 col-sm-10">
                     <input class="form-control" type="text" placeholder="Enter keywords" aria-label="Search" name="searchKeyword">
                 </div>
                 <div class="container col-sm-2 px-0">
-                    <button type="button btn-block" class="btn btn-outline-info">Search</button>
+                    <button type="button" class="btn btn-outline-info" id="search">Search</button>
                 </div>
             </div>
             <div class="container scrollbar-near-moon p-0" style="overflow-y:auto; max-height:57vh;">
