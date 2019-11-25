@@ -47,6 +47,7 @@ class SearchController extends Controller
             if(preg_match($pattern, basename($filename))){
                 $output.='<tr class="table-tr">'.'<td>'.basename($filename).'</td>'.'</tr>';
             }
+        }
             if($output!=""){
                 return Response($output);
             }
@@ -56,6 +57,7 @@ class SearchController extends Controller
             
         }
     }
+
 
     function openFile(Request $request)
     {   
