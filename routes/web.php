@@ -11,17 +11,6 @@
 |
 */
 
-<<<<<<< HEAD
 Route::get("/","SearchController@index");
 Route::get('/search','SearchController@search');
 Route::get('/openFile','SearchController@openFile');
-=======
-Route::get('/', function () {
-    foreach (glob("C:/Users/z000044455/Desktop/sample_files/*.xml") as $filename) {
-        $files[] = basename($filename, ".xml"); 
-    }
-    return view('home', compact('files'));
-});
-
-Route::get('/search', 'SearchController@search');
->>>>>>> search transition in a file
