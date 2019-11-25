@@ -17,7 +17,7 @@ class SearchController extends Controller
         if($request->ajax())
         {
         $output="";
-        foreach (glob("C:/Users/z000044455/Desktop/ForTRaining/Source/Source/S_*.xml") as $filename) {
+        foreach (glob("C:/Users/z000044455/Desktop/Source/*.xml") as $filename) {
             $pattern= '/(?i)('.$request->search.')/';
             if(preg_match($pattern, basename($filename))){
                 $output.='<tr class="table-tr">'.'<td>'.basename($filename).'</td>'.'</tr>';
