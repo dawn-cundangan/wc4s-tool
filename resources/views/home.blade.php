@@ -4,60 +4,71 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+ 
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>     
+    <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ asset('js/display.js') }}"></script>
+    
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <title>ScreenFlow</title>
+    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
 
-    <title>WC4s Tool</title>
   </head>
   <body>
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand">
-            <img src="https://i1.pngguru.com/preview/25/249/100/cute-groot-digital-art-icon-groot-png-clipart.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
-            Tool Name
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand light" href="#">
+            <img src="{{asset('favicon.png')}}" width="30" height="30" class="d-inline-block align-top" alt="">
+            ScreenFlow
         </a>
     </nav>
-    <div class="container-fluid row p-5">
+    <div class="container-fluid row p-5 mt-5">
         <div class="container col-md-6">
             <div class="row">
                 <div class="active-cyan-4 mb-4 col-sm-10">
                     <input class="form-control" type="text" placeholder="Enter keywords" aria-label="Search" id="search" name="search">
                 </div>
                 <div class="container col-sm-2 px-0">
-                    <button type="button btn-block" class="btn btn-outline-info">Search</button>
+                    <button type="button" class="btn btn-outline-info" id="search">Search</button>
                 </div>
             </div>
-            <table class="table table-hover table-sm" id="table">
-                <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Screen ID</th>
-                        <th scope="col">Screen Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>TD_Copy_Something_Something</td>
-                        <td>Copy</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>TS_Send_This_That</td>
-                        <td>Send</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>FX_Fax_Ni_Shimasu</td>
-                        <td>Fax</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="container scrollbar-near-moon p-0" style="overflow-y:auto; max-height:57vh;">
+                <table class="table table-hover table-sm" id="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Screen ID</th>
+                            <th scope="col">Screen Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>TD_Copy_Something_Something</td>
+                            <td>Copy</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>TS_Send_This_That</td>
+                            <td>Send</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>FX_Fax_Ni_Shimasu</td>
+                            <td>Fax</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="container col-md-6">
             <div class="accordion" id="accordionExample">
                     <div class="card">
-                        <div class="card-header" id="headingOne">
+                        <div class="card-header py-0" id="headingOne">
                             <h2 class="mb-0">
                                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     SD_Dulo_Ng_Send
@@ -77,7 +88,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header" id="headingTwo">
+                        <div class="card-header py-0" id="headingTwo">
                             <h2 class="mb-0">
                                 <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                     SM_Dulo_Ng_SM
@@ -97,7 +108,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header" id="headingThree">
+                        <div class="card-header py-0" id="headingThree">
                         <h2 class="mb-0">
                             <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                 FD_Dulo_Ng_Buhay_Mo

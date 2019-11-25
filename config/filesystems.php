@@ -64,6 +64,11 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'fileDisks' => [
+            'driver' => 'local',
+            'url' => 'C:\Users\z000044455\Desktop\sample_files',
+        ],
+
     ],
 
 ];
