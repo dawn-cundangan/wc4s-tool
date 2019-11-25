@@ -23,26 +23,30 @@
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
             <a class="navbar-brand light" href="#">
-                <img src="{{asset('favicon.png')}}" width="30" height="30" class="d-inline-block align-top" alt="">
+                <img src="{{asset('favicon.png')}}" width="30" height="30" class="d-inline-block align-top mr-2" alt="">
                 ScreenFlow
             </a>
         </nav>
         <div class="container-fluid row p-5 mt-5">
-            <div class="container col-md-6">
+            <div class="container col-md-6 md-mr-0">
                 <div class="row">
-                    <div class="active-cyan-4 mb-4 col-sm-10">
+                    <!--div class="active-cyan-4 mb-4 col-sm-10"-->
+                    <div class="active-cyan-4 mb-4 col-sm-12">
                         <input class="form-control" type="text" placeholder="Enter keywords" aria-label="Search" id="search" name="search">
                     </div>
-                    <div class="container col-sm-2 px-0">
+                    <!--div class="container col-sm-2 px-0">
                         <button type="button" class="btn btn-outline-info">Search</button>
-                    </div>
+                    </div-->
                 </div>
-                <div class="container scrollbar-near-moon p-0" style="overflow-y:auto; max-height:75vh;">
+                <div class="container scrollbar-near-moon-wide p-0 mb-5" style="overflow-y:auto; max-height:75vh;">
                     <label id="loading">Loading Results...</label>
-                    <table class="table table-sm table-hover cont" id="table">
+                    <table class="table table-sm table-hover cont mb-0" id="table">
                         <thead>
-                            <tr>
-                                <th>Name</th>
+                            <!--tr class="thead-dark w-100" style="position:fixed">
+                                <th>Screen ID</th>
+                            </tr-->
+                            <tr class="thead-dark">
+                                <th>Screen ID</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -115,29 +119,32 @@
                 </div>
             </div>
         </div>
+
+        <!-- Search Screen ID -->
         <script type="text/javascript">
-            $("#table").hide();
-            $("#loading").hide();
-            $('#search').on('keyup', function() {
-                $value=$(this).val();
-                $.ajax ({
+            jQuery("#table").hide();
+            jQuery("#loading").hide();
+            jQuery('#search').on('keyup', function() {
+                $value=jQuery(this).val();
+                jQuery.ajax ({
                     type : 'get',
-                    url : '{{URL::to('search')}}',
+                    url : '{{URL::to("search")}}',
                     data:{'search':$value},
                     beforeSend: function(){
-                        $("#loading").show();
-                        $("#table").hide();
+                        jQuery("#loading").show();
+                        jQuery("#table").hide();
                     },
                     complete: function(){
-                        $("#loading").hide();
-                        $("#table").show();
+                        jQuery("#loading").hide();
+                        jQuery("#table").show();
                     },
                     success:function(data){
-                        $('tbody').html(data);
+                        jQuery('tbody').html(data);
                     }
                 });
             })
 
+<<<<<<< HEAD
             $(function() {
                 $('table.cont').on("click", "tr.table-tr", function() {
                     var $item = $(this).text(); // Retrieves the text within <td>
@@ -150,15 +157,18 @@
                         alert(data);
                     }
                 });
+=======
+            jQuery(function() {
+                jQuery('table.cont').on("click", "tr.table-tr", function() {
+                    var $item = jQuery(this).text(); // Retrieves the text within <td>
+                    alert($item);
+>>>>>>> Refactored
                 });
             });
+
+            jQuery.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
         </script>
-        <script type="text/javascript">
-            $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-        </script>
-        <!-- jQuery first, then Popper.js, then Bootstrap JS>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script-->
+        
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
 </html>

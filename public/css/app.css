@@ -11123,7 +11123,7 @@ body {
 }
 
 .scrollbar-near-moon::-webkit-scrollbar-thumb {
-  border-radius: 0px;
+  border-radius: 20px;
   background-image: -webkit-gradient(linear, left bottom, left top, from(#5ee7de88), to(#59f79b88));
   background-image: linear-gradient(to top, #5ee7de88 0%, #59f79b88 100%);
 }
@@ -11140,7 +11140,7 @@ body {
 }
 
 .scrollbar-near-moon-wide::-webkit-scrollbar-thumb {
-  border-radius: 0px;
+  border-radius: 20px;
   background-image: -webkit-gradient(linear, left bottom, left top, from(#5ee7de88), to(#59f79b88));
   background-image: linear-gradient(to top, #5ee7de88 0%, #59f79b88 100%);
 }
