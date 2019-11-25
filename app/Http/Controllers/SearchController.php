@@ -47,9 +47,13 @@ class SearchController extends Controller
             if(preg_match($pattern, basename($filename))){
                 $output.='<tr class="table-tr">'.'<td>'.basename($filename).'</td>'.'</tr>';
             }
-        }
-        return Response($output);
-
+            if($output!=""){
+                return Response($output);
+            }
+            else{
+                return Response("none");
+            }
+            
         }
     }
 

@@ -40,6 +40,7 @@
                 </div>
                 <div class="container scrollbar-near-moon-wide p-0 mb-5" style="overflow-y:auto; max-height:75vh;">
                     <label id="loading">Loading Results...</label>
+                    <label id="noResults">No Results Found!</label>
                     <table class="table table-sm table-hover cont mb-0" id="table">
                         <thead>
                             <!--tr class="thead-dark w-100" style="position:fixed">
@@ -124,6 +125,7 @@
         <script type="text/javascript">
             jQuery("#table").hide();
             jQuery("#loading").hide();
+            jQuery("#noResults").hide();
             jQuery('#search').on('keyup', function() {
                 $value=jQuery(this).val();
                 jQuery.ajax ({
@@ -133,13 +135,21 @@
                     beforeSend: function(){
                         jQuery("#loading").show();
                         jQuery("#table").hide();
-                    },
-                    complete: function(){
-                        jQuery("#loading").hide();
-                        jQuery("#table").show();
+                        jQuery("#noResults").hide();
                     },
                     success:function(data){
-                        jQuery('tbody').html(data);
+                        if(data=="none"){
+                            jQuery("#noResults").show();
+                            jQuery("#loading").hide();
+                            jQuery("#table").hide();
+                        }
+                        else{
+                            jQuery('tbody').html(data);  
+                            jQuery("#noResults").hide();
+                            jQuery("#loading").hide();
+                            jQuery("#table").show();
+                        }
+                        
                     }
                 });
             })
