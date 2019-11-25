@@ -27,4 +27,15 @@ class SearchController extends Controller
 
         }
     }
+
+    function openFile(Request $request)
+    {   
+        if($request->ajax())
+        {
+            // echo "<script>console.log('Debug Objects: " . $request->openFile . "' );</script>";
+            return Response( $request->openFile);
+
+        }
+        
+    }
 }

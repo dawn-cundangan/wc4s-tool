@@ -16,3 +16,4 @@
 // });
 Route::get("/","SearchController@index");
 Route::get('/search','SearchController@search');
+Route::get('/openFile','SearchController@openFile');

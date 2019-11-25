@@ -141,7 +141,15 @@
             $(function() {
                 $('table.cont').on("click", "tr.table-tr", function() {
                     var $item = $(this).text(); // Retrieves the text within <td>
-                    alert($item);
+                    
+                    $.ajax ({
+                    type : 'get',
+                    url : '{{URL::to('openFile')}}',
+                    data:{'openFile':$item},
+                    success:function(data){
+                        alert(data);
+                    }
+                });
                 });
             });
         </script>
