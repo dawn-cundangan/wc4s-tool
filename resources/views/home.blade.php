@@ -54,7 +54,6 @@
                     </table>
                 </div>
             </div>
-<<<<<<< HEAD
             <div class="container col-md-6">
                 <div class="accordion" id="accordionExample">
                         <div class="card">
@@ -76,52 +75,6 @@
                                     </ol> 
                                 </div>
                             </div>
-=======
-        </form>
-            <div class="container scrollbar-near-moon p-0" style="overflow-y:auto; max-height:57vh;">
-                <table class="table table-hover table-sm" id="searchResult">
-                    <!-- <thead>
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Screen ID</th>
-                            <th scope="col">Screen Name</th>
-                        </tr>
-                    </thead> -->
-                    <tbody>
-                        <!-- <tr>
-                            <th scope="row">1</th>
-                            <td>TD_Copy_Something_Something</td>
-                            <td>Copy</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>TS_Send_This_That</td>
-                            <td>Send</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>FX_Fax_Ni_Shimasu</td>
-                            <td>Fax</td>
-                        </tr> -->
-                        @foreach ( $files as $f)
-                            <tr>
-                                <td>{{$f}}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="container col-md-6">
-            <div class="accordion" id="accordionExample">
-                    <div class="card">
-                        <div class="card-header py-0" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    SD_Dulo_Ng_Send
-                                </button>
-                            </h2>
->>>>>>> search transition in a file
                         </div>
                         <div class="card">
                             <div class="card-header py-0" id="headingTwo">
