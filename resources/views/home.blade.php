@@ -66,7 +66,7 @@
                             </div>
                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    <ol class="my-0">
+                                    <ol id="list1" class="my-0">
                                         <li>Root Screen</li>
                                         <li>Screen 1</li>
                                         <li>Screen 2</li>
@@ -153,7 +153,7 @@
                         url : '{{URL::to('openFile')}}',
                         data:{'openFile':$item},
                         success:function(data){
-                            alert(data);
+                            jQuery("#list1").html(data);
                         }
                     });
                 });

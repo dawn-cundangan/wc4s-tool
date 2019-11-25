@@ -66,7 +66,7 @@ return [
 
         'fileDisk' => [
             'driver' => 'local',
-            'root' => 'C:\Users\z000044455\Desktop\sample_files',
+            'root' => 'C:\Users\z000044455\Desktop\Source',
         ],
 
     ],
