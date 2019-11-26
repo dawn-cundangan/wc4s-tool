@@ -39,8 +39,8 @@
                     </div-->
                 </div>
                 <div class="container scrollbar-near-moon-wide p-0 mb-5" style="overflow-y:auto; max-height:75vh;">
-                    <label id="loading">Loading Results...</label>
-                    <label id="noResults">No Results Found!</label>
+                    <label id="loading">Loading results...</label>
+                    <label id="noResults">No results found!</label>
                     <table class="table table-sm table-hover cont mb-0" id="table">
                         <thead>
                             <!--tr class="thead-dark w-100" style="position:fixed">
