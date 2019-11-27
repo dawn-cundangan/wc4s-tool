@@ -127,23 +127,22 @@
             jQuery("#loading").hide();
             jQuery("#noResults").hide();
             jQuery('#search').on('keyup', function() {
-                $value=jQuery(this).val();
+                $value = jQuery(this).val();
                 jQuery.ajax ({
-                    type : 'get',
-                    url : '{{URL::to("search")}}',
-                    data:{'search':$value},
-                    beforeSend: function(){
+                    type: 'get',
+                    url: '{{URL::to("search")}}',
+                    data: {'search':$value},
+                    beforeSend: function() {
                         jQuery("#loading").show();
                         jQuery("#table").hide();
                         jQuery("#noResults").hide();
                     },
-                    success:function(data){
-                        if(data=="none"){
+                    success:function(data) {
+                        if (data == "none") {
                             jQuery("#noResults").show();
                             jQuery("#loading").hide();
                             jQuery("#table").hide();
-                        }
-                        else{
+                        } else {
                             jQuery('tbody').html(data);  
                             jQuery("#noResults").hide();
                             jQuery("#loading").hide();
@@ -159,10 +158,10 @@
                     var $item = jQuery(this).text(); // Retrieves the text within <td>
 
                     jQuery.ajax ({
-                        type : 'get',
-                        url : '{{URL::to('openFile')}}',
-                        data:{'openFile':$item},
-                        success:function(data){
+                        type: 'get',
+                        url: '{{URL::to('openFile')}}',
+                        data: {'openFile':$item},
+                        success: function(data) {
                             //jQuery("#list1").html(data);
                             alert(data);
                         }
