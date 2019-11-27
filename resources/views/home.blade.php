@@ -61,7 +61,7 @@
                             <div class="card-header py-0" id="headingOne">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        SD_Dulo_Ng_Send
+                                        First Root
                                     </button>
                                 </h2>
                             </div>
@@ -81,7 +81,7 @@
                             <div class="card-header py-0" id="headingTwo">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        SM_Dulo_Ng_SM
+                                        Second Root
                                     </button>
                                 </h2>
                             </div>
@@ -101,7 +101,7 @@
                             <div class="card-header py-0" id="headingThree">
                             <h2 class="mb-0">
                                 <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    FD_Dulo_Ng_Buhay_Mo
+                                    Third Root
                                 </button>
                             </h2>
                             </div>
