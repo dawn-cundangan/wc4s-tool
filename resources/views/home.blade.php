@@ -163,7 +163,8 @@
                         url : '{{URL::to('openFile')}}',
                         data:{'openFile':$item},
                         success:function(data){
-                            jQuery("#list1").html(data);
+                            //jQuery("#list1").html(data);
+                            alert(data);
                         }
                     });
                 });

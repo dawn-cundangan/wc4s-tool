@@ -58,6 +58,8 @@ class SearchController extends Controller
         }
     }
 
+    
+
 
     function openFile(Request $request)
     {   
@@ -80,13 +82,47 @@ class SearchController extends Controller
             // search, and store all matching occurences in $matches
             if(preg_match_all($pattern, $contents, $matches)){
                 //echo "Found matches:\n";
-                return Response( $matches[0]);
+                //Response( $matches[0])
+                $path = array(1000);
+                $root = $request->openFile;
+                $output=$this->findPathsRecur($root,$path,0);
+                return Response($output);
                 //echo implode("\n",);
             }
             else{
                 return Response( "No matches found");
             }
 
+        }
+        
+    }
+
+    function findPathsRecur($root,&$path,$length){
+        $path[$length] = $root;
+        $length=$length+1;
+        $transitions=array();
+        $searchfor = 'Transition_Destination_Window';
+        header('Content-Type: text/plain');
+        if(Storage::disk('fileDisk')->exists($root)){
+        $contents = Storage::disk('fileDisk')->get($root);
+        $pattern = preg_quote($searchfor, '/');
+        $pattern = "/^.*$pattern.*\$/m";
+        if(preg_match_all($pattern, $contents, $matches)){
+                foreach($matches[0] as $filename){
+                    $str1 = (explode('>',$filename,2));
+                    $str2 = (explode('<',$str1[1],2));
+                    $str2[0] .= ".xml";
+                    array_push($transitions,$str2[0]);
+                }
+            foreach ($transitions as $match) {
+                $this->findPathsRecur($match,$path,$length);
+                return $path;
+                //return $transitions;
+            }
+        }
+        }
+        else{
+            return $path;
         }
         
     }
