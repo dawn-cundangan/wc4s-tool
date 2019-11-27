@@ -45,7 +45,7 @@ class SearchController extends Controller
             foreach (glob("C:/Users/z000044455/Desktop/Source/*.xml") as $filename) {
                 $pattern= '/(?i)('.$request->search.')/';
                 if(preg_match($pattern, basename($filename))){
-                    $output.='<tr class="table-tr">'.'<td>'.basename($filename).'</td>'.'</tr>';
+                    $output.='<tr class="table-tr">'.'<td>'.basename($filename, ".xml").'</td>'.'</tr>';
                 }
             }
             if($output!=""){
@@ -73,8 +73,10 @@ class SearchController extends Controller
             // the following line prevents the browser from parsing this as HTML.
             header('Content-Type: text/plain');
     
+            $file = $request->openFile;
+            $file .= ".xml";
             // get the file contents, assuming the file to be readable (and exist)
-            $contents = Storage::disk('fileDisk')->get($request->openFile);
+            $contents = Storage::disk('fileDisk')->get($file);
             // escape special characters in the query
             $pattern = preg_quote($searchfor, '/');
             // finalise the regular expression, matching the whole line
@@ -85,6 +87,7 @@ class SearchController extends Controller
                 //Response( $matches[0])
                 $path = array(1000);
                 $root = $request->openFile;
+                $root .= ".xml";
                 $output=$this->findPathsRecur($root,$path,0);
                 return Response($output);
                 //echo implode("\n",);
