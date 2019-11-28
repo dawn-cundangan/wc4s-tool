@@ -34,10 +34,12 @@ class SearchController extends Controller
         // $filesInFolder = Storage::disk('confidential_files')->getDriver()->getAdapter()->applyPathPrefix('*.xml');
         if ($request->ajax()) {
             $output="";
+            $number = 1;
             foreach (glob("C:/Users/z000044455/Desktop/Source/*.xml") as $filename) {
                 $pattern= '/(?i)('.$request->search.')/';
                 if (preg_match($pattern, basename($filename))) {
-                    $output.='<tr class="table-tr">'.'<td>'.basename($filename, ".xml").'</td>'.'</tr>';
+                    $output.='<tr>'.'<td>'.$number.'</td><td class="filename">'.basename($filename, ".xml").'</td>'.'</tr>';
+                    $number = $number+1;
                 }
             }
             if ($output!="") {
@@ -83,6 +85,7 @@ class SearchController extends Controller
         $path[$length] = $root;
         $length = $length+1;
         $transitions = array();
+        //$compiled = array();
         $searchfor = 'Transition_Destination_Window';
         header('Content-Type: text/plain');
 
@@ -99,6 +102,8 @@ class SearchController extends Controller
                     array_push($transitions,$str2[0]);
                 }
                 foreach ($transitions as $match) {
+                    //array_push($this->findPathsRecur($match,$path,$length), $compiled);
+                    //return $compiled;
                     $this->findPathsRecur($match,$path,$length);
                     return $path;
                     //return $transitions;
