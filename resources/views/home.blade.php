@@ -166,23 +166,19 @@
                     }
                 });
             })
-
             jQuery(function() {
                 jQuery('table.cont').on("click", "td.filename", function() {
                     var $item = jQuery(this).text(); // Retrieves the text within <td>
-
                     jQuery.ajax ({
                         type: 'get',
                         url: '{{URL::to('openFile')}}',
                         data: {'openFile':$item},
                         success: function(data) {
-                            //jQuery("#list1").html(data);
-                            alert(data);
+                            jQuery("#list1").html(data);
                         }
                     });
                 });
             });
-
             jQuery.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
         </script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

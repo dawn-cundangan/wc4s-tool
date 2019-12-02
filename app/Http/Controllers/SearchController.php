@@ -13,7 +13,7 @@ class SearchController extends Controller
 
     public function viewTransition(Request $request) {
         $searchfor = 'Transition_Destination_Window';
-        // the following line prevents the browser from parsing this as HTML.
+        // the following line prevents the browser from parsing this as HTML
         header('Content-Type: text/plain');
         // get the file contents, assuming the file to be readable (and exist)
         $contents = Storage::disk('fileDisk')->get('S_Zoom_T.xml');
@@ -50,67 +50,63 @@ class SearchController extends Controller
         }
     }
 
-    function openFile (Request $request) {   
-        if ($request->ajax()) {
+
+    function openFile(Request $request)
+    {   
+        if($request->ajax())
+        {
             // echo "<script>console.log('Debug Objects: " . $request->openFile . "' );</script>";
             // return Response( $request->openFile);
-            $searchfor = 'Transition_Destination_Window';
-            // the following line prevents the browser from parsing this as HTML.
-            header('Content-Type: text/plain');
+            $finalTree = array();
             $file = $request->openFile;
-            $file .= ".xml";
-            // get the file contents, assuming the file to be readable (and exist)
-            $contents = Storage::disk('fileDisk')->get($file);
-            // escape special characters in the query
-            $pattern = preg_quote($searchfor, '/');
-            // finalise the regular expression, matching the whole line
-            $pattern = "/^.*$pattern.*\$/m";
-            // search, and store all matching occurences in $matches
-            if (preg_match_all($pattern, $contents, $matches)) {
-                //echo "Found matches:\n";
-                //Response( $matches[0])
-                $path = array(1000);
-                $root = $request->openFile;
-                $root .= ".xml";
-                $output = $this->findPathsRecur($root,$path,0);
-                return Response($output);
-                //echo implode("\n",);
-            } else {
-                return Response( "No matches found");
+            $this->getParent($file);
+
+            $filesAsArray = explode("\n",file_get_contents("logs.txt"));
+
+            foreach ($filesAsArray as $aFile)  { 
+                if($aFile!=""){
+                    $fileName = explode(" => ", $aFile);
+                    $fileName = $fileName[1];
+                    $this->getParent($fileName);
+                    $filesAsArray = explode("\n",file_get_contents("logs.txt"));
+                }
             }
+            //$this->throughTheFile();
+            
         }
+        
     }
 
-    function findPathsRecur ($root,&$path,$length) {
-        $path[$length] = $root;
-        $length = $length+1;
-        $transitions = array();
-        //$compiled = array();
-        $searchfor = 'Transition_Destination_Window';
+
+    function getParent($filename){
+        $searchfor = '<Transition_Destination_Window>'.$filename;
+        $pattern = preg_quote($searchfor, '/');
+        $pattern = "/^.*$pattern.*\$/m";
+
+        // the following line prevents the browser from parsing this as HTML.
         header('Content-Type: text/plain');
+        $mz = array();
+        $id=0;
 
-        if (Storage::disk('fileDisk')->exists($root)) {
-            $contents = Storage::disk('fileDisk')->get($root);
-            $pattern = preg_quote($searchfor, '/');
-            $pattern = "/^.*$pattern.*\$/m";
+        // go through all the files in the folder as $f
+        foreach (Storage::disk('fileDisk')->files() as $f )
+        {
+            // retriev the content of each file $f
+            $contents = Storage::disk('fileDisk')->get($f);
 
-            if (preg_match_all($pattern, $contents, $matches)) {
-                foreach($matches[0] as $filename){
-                    $str1 = (explode('>',$filename,2));
-                    $str2 = (explode('<',$str1[1],2));
-                    $str2[0] .= ".xml";
-                    array_push($transitions,$str2[0]);
-                }
-                foreach ($transitions as $match) {
-                    //array_push($this->findPathsRecur($match,$path,$length), $compiled);
-                    //return $compiled;
-                    $this->findPathsRecur($match,$path,$length);
-                    return $path;
-                    //return $transitions;
-                }
+            if(preg_match_all($pattern, $contents, $matches)){
+                array_push($mz,$f);
+                $id+=1;
+                $txt = $id."/".$filename." => ".substr($f, 0, -4);
+                $myfile = fopen("logs.txt", "a") or die("Unable to open file!");
+                fwrite($myfile, "\n". $txt);
+                fclose($myfile);
             }
-        } else {
-            return $path;
         }
+
+        if(sizeof($mz)==0){
+            echo "No parent file";
+        }
+        return;
     }
 }
