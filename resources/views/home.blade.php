@@ -37,9 +37,9 @@
                     <!--div class="container col-sm-2 px-0">
                         <button type="button" class="btn btn-outline-info">Search</button>
                     </div-->
-                    <div class="px-3">
+                    <!-- <div class="px-3">
                         <a href="#" class="export pb-2">Export table data into Excel</a>               
-                    </div>
+                    </div> -->
                 </div>
                 <div class="container scrollbar-near-moon-wide p-0 sm-mb-5 md-mb-0" id="resultsDiv" style="overflow-y:auto; max-height:78vh;">
                     <label id="loading">Loading results...</label>
