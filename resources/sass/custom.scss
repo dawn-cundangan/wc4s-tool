@@ -7,17 +7,7 @@ body {
     background-color: white !important;
 }
 
-// td.filename {
-// 	max-width: 0;
-// 	overflow: hidden;
-//     text-overflow: ellipsis;
-//     white-space: nowrap;
-// }
-
-// td.filename:hover {
-// 	overflow: visible;
-// }
-
+/* Flow Card */
 .list-group.list-group-root {
 	padding: 0;
 	overflow: hidden;
@@ -38,6 +28,10 @@ body {
 
 .list-group-item .fa {
 	margin-right: 5px;
+}
+
+.screen[aria-expanded='true']{
+	background-color: #42DCA3;
 }
 
 /* Customized scrollbar */

@@ -37,7 +37,6 @@ class SearchController extends Controller
         }
     }
 
-
     function openFile(Request $request) {   
         $finalTree = array();
         $filename = $request->openFile;

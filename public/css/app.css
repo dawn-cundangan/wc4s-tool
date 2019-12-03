@@ -11109,6 +11109,8 @@ body {
   background-color: white !important;
 }
 
+/* Flow Card */
+
 .list-group.list-group-root {
   padding: 0;
   overflow: hidden;
@@ -11129,6 +11131,10 @@ body {
 
 .list-group-item .fa {
   margin-right: 5px;
+}
+
+.screen[aria-expanded=true] {
+  background-color: #42DCA3;
 }
 
 /* Customized scrollbar */
