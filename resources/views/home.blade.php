@@ -4,6 +4,7 @@
         <!-- Required meta tags -->
         <meta name="_token" content="{{ csrf_token() }}">
         <meta charset="utf-8">
+        <meta name="_token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -27,8 +28,8 @@
                 ScreenFlow
             </a>
         </nav>
-        <div class="container-fluid row p-5 mt-5">
-            <div class="container col-md-6 md-mr-0">
+        <div class="container-fluid row p-5 mt-4 mx-0">
+            <div class="container col-md-6 md-mr-0 mt-3">
                 <div class="row">
                     <!--div class="active-cyan-4 mb-4 col-sm-10"-->
                     <div class="active-cyan-4 mb-4 col-sm-12">
@@ -37,8 +38,11 @@
                     <!--div class="container col-sm-2 px-0">
                         <button type="button" class="btn btn-outline-info">Search</button>
                     </div-->
+                    <!-- <div class="px-3">
+                        <a href="#" class="export pb-2">Export table data into Excel</a>               
+                    </div> -->
                 </div>
-                <div class="container scrollbar-near-moon-wide p-0 mb-5" style="overflow-y:auto; max-height:75vh;">
+                <div class="container scrollbar-near-moon-wide p-0 sm-mb-5 md-mb-0" id="resultsDiv" style="overflow-y:auto; max-height:78vh;">
                     <label id="loading">Loading results...</label>
                     <label id="noResults">No results found!</label>
                     <table class="table table-sm table-hover cont mb-0" id="table">
@@ -47,7 +51,8 @@
                                 <th>Screen ID</th>
                             </tr-->
                             <tr class="thead-dark">
-                                <th>Screen ID</th>
+                                <th style="width:8%">No.</th>
+                                <th style="width:92%">Screen ID</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -55,13 +60,14 @@
                     </table>
                 </div>
             </div>
-            <div class="container col-md-6">
+            <div class="container col-md-6 mt-3">
                 <div class="accordion" id="accordionExample">
+                        <ul id="menu_tree"></ul>
                         <div class="card">
                             <div class="card-header py-0" id="headingOne">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        SD_Dulo_Ng_Send
+                                        Sample First Root
                                     </button>
                                 </h2>
                             </div>
@@ -81,7 +87,7 @@
                             <div class="card-header py-0" id="headingTwo">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        SM_Dulo_Ng_SM
+                                        Sample Second Root
                                     </button>
                                 </h2>
                             </div>
@@ -101,7 +107,7 @@
                             <div class="card-header py-0" id="headingThree">
                             <h2 class="mb-0">
                                 <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    FD_Dulo_Ng_Buhay_Mo
+                                    Sample Third Root
                                 </button>
                             </h2>
                             </div>
@@ -120,6 +126,15 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+            $(document).ready(function () 
+            {
+                $.get("file:///C:/Users/z000044455/Desktop/Source/", function(data) 
+                {
+                    $(".resultsDiv").append(data);
+                });
+            })
+        </script>
 
         <!-- Search Screen ID -->
         <script type="text/javascript">
@@ -127,23 +142,22 @@
             jQuery("#loading").hide();
             jQuery("#noResults").hide();
             jQuery('#search').on('keyup', function() {
-                $value=jQuery(this).val();
+                $value = jQuery(this).val();
                 jQuery.ajax ({
-                    type : 'get',
-                    url : '{{URL::to("search")}}',
-                    data:{'search':$value},
-                    beforeSend: function(){
+                    type: 'get',
+                    url: '{{URL::to("search")}}',
+                    data: {'search':$value},
+                    beforeSend: function() {
                         jQuery("#loading").show();
                         jQuery("#table").hide();
                         jQuery("#noResults").hide();
                     },
-                    success:function(data){
-                        if(data=="none"){
+                    success:function(data) {
+                        if (data == "none") {
                             jQuery("#noResults").show();
                             jQuery("#loading").hide();
                             jQuery("#table").hide();
-                        }
-                        else{
+                        } else {
                             jQuery('tbody').html(data);  
                             jQuery("#noResults").hide();
                             jQuery("#loading").hide();
@@ -153,18 +167,18 @@
                     }
                 });
             })
-
             jQuery(function() {
-                jQuery('table.cont').on("click", "tr.table-tr", function() {
+                jQuery('table.cont').on("click", "td.filename", function() {
                     var $item = jQuery(this).text(); // Retrieves the text within <td>
-
                     jQuery.ajax ({
-                        type : 'get',
-                        url : '{{URL::to('openFile')}}',
-                        data:{'openFile':$item},
-                        success:function(data){
+                        type: 'get',
+                        url: '{{URL::to('openFile')}}',
+                        data: {'openFile':$item},
+                        success: function(data) {
                             //jQuery("#list1").html(data);
                             alert(data);
+                            //jQuery("#menu_tree").html(data);
+                            //jQuery("#menu_tree").show();
                         }
                     });
                 });
