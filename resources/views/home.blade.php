@@ -2,7 +2,6 @@
 <html lang="en">
     <head>
         <!-- Required meta tags -->
-        <meta name="_token" content="{{ csrf_token() }}">
         <meta charset="utf-8">
         <meta name="_token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -136,6 +135,16 @@
             })
         </script>
 
+        <script type="text/javascript">
+            $(document).ready(function () 
+            {
+                $.get("file:///C:/Users/z000044455/Desktop/Source/", function(data) 
+                {
+                    $(".resultsDiv").append(data);
+                });
+            })
+        </script>
+
         <!-- Search Screen ID -->
         <script type="text/javascript">
             jQuery("#table").hide();
@@ -175,18 +184,13 @@
                         url: '{{URL::to('openFile')}}',
                         data: {'openFile':$item},
                         success: function(data) {
-                            //jQuery("#list1").html(data);
                             alert(data);
-                            //jQuery("#menu_tree").html(data);
-                            //jQuery("#menu_tree").show();
                         }
                     });
                 });
             });
-
             jQuery.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
         </script>
-        
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
 </html>

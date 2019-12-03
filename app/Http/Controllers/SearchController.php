@@ -15,7 +15,6 @@ class SearchController extends Controller
         $searchfor = 'Transition_Destination_Window';
         // the following line prevents the browser from parsing this as HTML
         header('Content-Type: text/plain');
-
         // get the file contents, assuming the file to be readable (and exist)
         $contents = Storage::disk('fileDisk')->get('S_Zoom_T.xml');
         // escape special characters in the query
