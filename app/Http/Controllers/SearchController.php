@@ -38,9 +38,9 @@ class SearchController extends Controller
         }
     }
 
-    function openFile(Request $request) {   
+    function leafToRoot(Request $request) {   
         $finalTree = array();
-        $filename = $request->openFile;
+        $filename = $request->leafToRoot;
         $searchfor = '<Transition_Destination_Window>'.$filename;
 
         $pattern = preg_quote($searchfor, '/');

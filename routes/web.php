@@ -12,6 +12,6 @@
 */
 
 Route::get("/","SearchController@index");
-Route::get('/search','SearchController@search');
-Route::get('/openFile','SearchController@openFile');
-
+Route::get("/search","SearchController@search");
+Route::get("/leafToRoot","SearchController@leafToRoot");
+Route::get("/rootToLeaf","SearchController@rootToLeaf");

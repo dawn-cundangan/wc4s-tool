@@ -104,8 +104,8 @@
                 var item = jQuery(this).text(); // Retrieves the text within <td>
                 jQuery.ajax ({
                     type: 'get',
-                    url: '{{URL::to("openFile")}}',
-                    data: {'openFile':item},
+                    url: '{{URL::to("leafToRoot")}}',
+                    data: {'leafToRoot':item},
                     success: function(data) {
                         htmlString = "";
                         console.log(data);
@@ -133,8 +133,8 @@
                 var item = jQuery(this).text();
                 jQuery.ajax ({
                     type: 'get',
-                    url: '{{URL::to("openFile")}}',
-                    data: {'openFile':item},
+                    url: '{{URL::to("leafToRoot")}}',
+                    data: {'leafToRoot':item},
                     success: function(data) {
                         htmlString = "";
                         console.log(data);
