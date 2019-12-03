@@ -37,50 +37,39 @@ class SearchController extends Controller
         }
     }
 
-    function openFile(Request $request)
-    {   
-        if($request->ajax())
-        {
-            $finalTree = array();
-            $file = $request->openFile;
-            return Response($this->getParent($file));
-        }
-        
-    }
 
-    // Function for retrieving the parent/predecessor of the input screen.
-    function getParent($filename){
+    function openFile(Request $request) {   
+        $finalTree = array();
+        $filename = $request->openFile;
         $searchfor = '<Transition_Destination_Window>'.$filename;
+
         $pattern = preg_quote($searchfor, '/');
         $pattern = "/^.*$pattern.*\$/m";
-
-        // The following line prevents the browser from parsing this as HTML.
+        // the following line prevents the browser from parsing this as HTML.
         header('Content-Type: text/plain');
-        $mz = array();
+
+        $fileArray = array();
         $finalOutput = array();
-        $id=0;
+        $id = 0;
 
-        // Go through all the files in the folder as $f
-        foreach (Storage::disk('fileDisk')->files() as $f )
-        {
-            // Retrieve the content of each file $f
-            $contents = Storage::disk('fileDisk')->get($f);
+        // go through all the files in the folder as $file
+        foreach (Storage::disk('fileDisk')->files() as $file) {
+            // retrieve the content of each file $file
+            $contents = Storage::disk('fileDisk')->get($file);
 
-            // Find all matches and push to array ($finalOutput) which will be returned.
-            if(preg_match_all($pattern, $contents, $matches)){
-                array_push($mz,$f);
-                $id+=1;
-                $txt = substr($f, 0, -4);
-                array_push($finalOutput,$txt);
+            if (preg_match_all($pattern, $contents, $matches)){
+                array_push($fileArray, $file);
+                $id += 1;
+                $txt = substr($file, 0, -4);
+                array_push($finalOutput, $txt);
             }
         }
-        // If the input screen ID has no parent/predecessor exists. 
-        if(sizeof($mz)==0){
-            return "No Parent File";
+        return $finalOutput;
+
+        if(sizeof($fileArray)==0){
+            array_push($finalOutput, "No parent");
         }
-        // If there exists (parent/predecessor).
-        else{
-            return $finalOutput;
-        }
+        
+        return $finalOutput;
     }
 }
