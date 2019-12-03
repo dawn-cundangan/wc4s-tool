@@ -51,27 +51,30 @@ class SearchController extends Controller
         $fileArray = array();
         $finalOutput = array();
         $id = 0;
+        $filename.=".xml";
+        if(Storage::disk('fileDisk')->exists($filename)){
+            // go through all the files in the folder as $file
+            foreach (Storage::disk('fileDisk')->files() as $file) {
+                // retrieve the content of each file $file
+                $contents = Storage::disk('fileDisk')->get($file);
 
-        // go through all the files in the folder as $file
-        foreach (Storage::disk('fileDisk')->files() as $file) {
-            // retrieve the content of each file $file
-            $contents = Storage::disk('fileDisk')->get($file);
-
-            if (preg_match_all($pattern, $contents, $matches)){
-                array_push($fileArray, $file);
-                $id += 1;
-                $txt = substr($file, 0, -4);
-                array_push($finalOutput, $txt);
+                if (preg_match_all($pattern, $contents, $matches)){
+                    array_push($fileArray, $file);
+                    $id += 1;
+                    $txt = substr($file, 0, -4);
+                    array_push($finalOutput, $txt);
+                }
             }
         }
-        if(sizeof($fileArray)==0){
-            array_push($finalOutput, "No parent");
+        else{
+            array_push($finalOutput, "File doesn't exist.");
         }
         return $finalOutput;
     }
 
     function rootToLeaf(Request $request){
         $filename=$request->root;
+        $filename.=".xml";
         //$myfile = fopen("logs.txt", "w") or die("Unable to open file!");
         $transitions=array();
         $searchfor = 'Transition_Destination_Window';
@@ -83,8 +86,7 @@ class SearchController extends Controller
             foreach($matches[0] as $filename){
                 $str1 = (explode('>',$filename,2));
                 $str2 = (explode('<',$str1[1],2));
-                $str2[0] .= ".xml";
-                array_push($transitions,$str2[0]);
+                array_push($transitions,$str2);
             }
             //fwrite($myfile, print_r($transitions, TRUE));
         }
@@ -92,6 +94,7 @@ class SearchController extends Controller
             array_push($transitions, "No parent");
             //fwrite($myfile, "No matches found");
         }
+        return $transitions;
         //fclose($myfile);
     }
 }
