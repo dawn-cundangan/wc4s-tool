@@ -143,8 +143,6 @@
                                 htmlString += "<a href='#" + data[i] + "' class='list-group-item screens' data-toggle='collapse'>";
                                 htmlString += "<i class='fa fa-chevron-right'></i>" + data[i] + "</a>";
                                 htmlString += "<div class='list-group collapse pl-3' id='" + data[i] + "' style='background-color:#d4d4d459'></div>";
-                                // var padding = jQuery("#"  + data[i]).css('padding-left'); // get the padding
-                                // jQuery("#" + data[i]).css('padding-left', padding + 20);
                             }
                         } else if (data[0] == "File doesn't exist.") {
                             htmlString = "<a class='list-group-item screens' style='font-style:italic'>File doesn't exist!</a>";
