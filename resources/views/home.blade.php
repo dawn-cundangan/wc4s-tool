@@ -61,7 +61,9 @@
             </div>
             <div class="container col-md-6 mt-3">
                 <div class="accordion" id="accordionExample">
-                        <ul id="menu_tree"></ul>
+                        <div class="card">
+                            <ul id="menu_tree"></ul>
+                        </div>
                         <div class="card">
                             <div class="card-header py-0" id="headingOne">
                                 <h2 class="mb-0">
@@ -184,6 +186,7 @@
                         url: '{{URL::to('openFile')}}',
                         data: {'openFile':$item},
                         success: function(data) {
+                            //console.log(data[0]);
                             alert(data);
                         }
                     });
