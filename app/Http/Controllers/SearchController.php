@@ -51,60 +51,38 @@ class SearchController extends Controller
     }
 
 
-    function openFile(Request $request)
-    {   
-        if($request->ajax())
-        {
-            $finalTree = array();
-            $file = $request->openFile;
-            return Response($this->getParent($file));
-           // $filesAsArray = explode("\n",file_get_contents("logs.txt"));
-            
-            // foreach ($filesAsArray as $aFile)  { 
-            //     if($aFile!=""){
-            //         $fileName = explode(" => ", $aFile);
-            //         $fileName = $fileName[1];
-            //         $this->getParent($fileName);
-            //         $filesAsArray = explode("\n",file_get_contents("logs.txt"));
-            //     }
-            // }
-            //$this->throughTheFile();
-            
-        }
-        
-    }
-
-    function getParent($filename){
+    function openFile(Request $request) {   
+        $finalTree = array();
+        $filename = $request->openFile;
         $searchfor = '<Transition_Destination_Window>'.$filename;
+
         $pattern = preg_quote($searchfor, '/');
         $pattern = "/^.*$pattern.*\$/m";
-
         // the following line prevents the browser from parsing this as HTML.
         header('Content-Type: text/plain');
-        $mz = array();
+
+        $fileArray = array();
         $finalOutput = array();
-        $id=0;
+        $id = 0;
 
-        // go through all the files in the folder as $f
-        foreach (Storage::disk('fileDisk')->files() as $f )
-        {
-            // retriev the content of each file $f
-            $contents = Storage::disk('fileDisk')->get($f);
+        // go through all the files in the folder as $file
+        foreach (Storage::disk('fileDisk')->files() as $file) {
+            // retrieve the content of each file $file
+            $contents = Storage::disk('fileDisk')->get($file);
 
-            if(preg_match_all($pattern, $contents, $matches)){
-                array_push($mz,$f);
-                $id+=1;
-                $txt = substr($f, 0, -4);
-                array_push($finalOutput,$txt);
-                //$myfile = fopen("logs.txt", "a") or die("Unable to open file!");
-                //fwrite($myfile, "\n". $txt);
-                //fclose($myfile);
+            if (preg_match_all($pattern, $contents, $matches)){
+                array_push($fileArray, $file);
+                $id += 1;
+                $txt = substr($file, 0, -4);
+                array_push($finalOutput, $txt);
             }
         }
         return $finalOutput;
 
-        if(sizeof($mz)==0){
-            return "No parent file";
+        if(sizeof($fileArray)==0){
+            array_push($finalOutput, "No parent");
         }
+        
+        return $finalOutput;
     }
 }
