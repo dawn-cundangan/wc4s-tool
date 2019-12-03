@@ -1,7 +1,0 @@
-Array
-(
-    [0] => S_Zoom_I_StandardZoom.xml
-    [1] => S_Zoom_I_Others.xml
-    [2] => S_Zoom_I_ZoomEntry.xml
-    [3] => S_Zoom_I_XYZoom.xml
-)
