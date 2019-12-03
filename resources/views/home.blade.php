@@ -57,68 +57,6 @@
                 </div>
             </div>
             <div class="container col-md-6 mt-3">
-<<<<<<< HEAD
-                <div class="accordion" id="accordionExample">
-                        <ul id="menu_tree"></ul>
-                        <div class="card">
-                            <div class="card-header py-0" id="headingOne">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Sample First Root
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <ol id="list1" class="my-0">
-                                        <li>Root Screen</li>
-                                        <li>Screen 1</li>
-                                        <li>Screen 2</li>
-                                        <li>Screen 3</li>
-                                        <li>Screen 4</li>
-                                    </ol> 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header py-0" id="headingTwo">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Sample Second Root
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <ol class="my-0">
-                                        <li>Root Screen</li>
-                                        <li>Screen 1</li>
-                                        <li>Screen 2</li>
-                                        <li>Screen 3</li>
-                                        <li>Screen 4</li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header py-0" id="headingThree">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Sample Third Root
-                                </button>
-                            </h2>
-                            </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                            <div class="card-body">
-                                <ol class="my-0">
-                                    <li>Root Screen</li>
-                                    <li>Screen 1</li>
-                                    <li>Screen 2</li>
-                                    <li>Screen 3</li>
-                                    <li>Screen 4</li>
-                                </ol>
-                            </div>
-=======
                 <div class="card" style="overflow-y:auto; min-height:84.5vh; max-height:84.5vh;">
                     <div class="card-header py-0" id="heading">
                         <h5 class="my-1" id="mainScreen">
@@ -128,28 +66,15 @@
                     <div class="card-body">
                         <div class="list-group list-group-root well" id="flowCard">
 
->>>>>>> Refactored getParent, display screen parents in flow card on element click
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
-        <script type="text/javascript">
-            $(document).ready(function () 
-            {
-                $.get("file:///C:/Users/z000044455/Desktop/Source/", function(data) 
-                {
-                    $(".resultsDiv").append(data);
-                });
-            })
-        </script>
-=======
         <script>
             jQuery.get("file:///C:/Users/z000044455/Desktop/Source/", function(data) {
                 jQuery(".resultsDiv").append(data);
             });
->>>>>>> Refactored getParent, display screen parents in flow card on element click
 
             jQuery("#table").hide();
             jQuery("#loading").hide();
@@ -180,17 +105,6 @@
                     }
                 });
             })
-<<<<<<< HEAD
-            jQuery(function() {
-                jQuery('table.cont').on("click", "td.filename", function() {
-                    var $item = jQuery(this).text(); // Retrieves the text within <td>
-                    jQuery.ajax ({
-                        type: 'get',
-                        url: '{{URL::to('openFile')}}',
-                        data: {'openFile':$item},
-                        success: function(data) {
-                            alert(data);
-=======
             
             jQuery('table.cont').on("click", "td.filename", function() {
                 var item = jQuery(this).text(); // Retrieves the text within <td>
@@ -208,7 +122,6 @@
                         for (i = 0; i < data.length; i++) {
                             htmlString += "<a href='#" + data[i] + "' class='list-group-item' data-toggle='collapse'>";
                             htmlString += "<i class='fa fa-chevron-right'></i>" + data[i] + "</a>";
->>>>>>> Refactored getParent, display screen parents in flow card on element click
                         }
                         htmlString += "</ul>";
 
