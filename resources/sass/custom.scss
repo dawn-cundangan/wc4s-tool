@@ -30,8 +30,17 @@ body {
 	margin-right: 5px;
 }
 
-.screen[aria-expanded='true']{
-	background-color: #42DCA3;
+/* Parent items */
+.screens {
+	color: #000000d9;
+}
+
+.screens:hover {
+	color: #42DCA3;
+}
+
+.screens[aria-expanded="true"]{
+	color: #42DCA3 !important;
 }
 
 /* Customized scrollbar */

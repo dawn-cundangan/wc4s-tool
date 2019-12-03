@@ -58,7 +58,7 @@
                             Flow
                         </p>
                     </div>
-                    <div class="card-body scrollbar-near-moon-wide" style="overflow-y:auto; min-height:80vh; max-height:80vh;">
+                    <div class="card-body scrollbar-near-moon-wide" style="overflow-y:auto; min-height:80vh; max-height:80vh; background-color:#ebebeb3b;">
                         <div class="list-group list-group-root well" id="flowCard">
                         </div>
                     </div>
@@ -109,16 +109,22 @@
                     success: function(data) {
                         htmlString = "";
                         console.log(data);
-                        for (i = 0; i < data.length; i++) {
-                            htmlString += "<a href='#" + data[i] + "' class='list-group-item screens' data-toggle='collapse'>";
-                            htmlString += "<i class='fa fa-chevron-right'></i>" + data[i] + "</a>";
-                            htmlString += "<div class='list-group collapse pl-3' id='" + data[i] + "'></div>";
+                        if (data[0]) {
+                            for (i = 0; i < data.length; i++) {
+                                htmlString += "<a href='#" + data[i] + "' class='list-group-item screens' data-toggle='collapse'>";
+                                htmlString += "<i class='fa fa-chevron-right'></i>" + data[i] + "</a>";
+                                htmlString += "<div class='list-group collapse pl-3' id='" + data[i] + "' style='background-color:#d4d4d459'></div>";
+                            }
+                        } else {
+                            htmlString = "<a class='list-group-item screens' style='font-style:italic'>This screen has no parent.</a>";
                         }
-
                         jQuery('#mainScreen').html(item);
                         jQuery('#flowCard').html(htmlString);
                     }
                 });
+                jQuery('.fa', this)
+                .toggleClass('fa fa-chevron-right')
+                .toggleClass('fa fa-chevron-down');
             });
 
             jQuery('#flowCard').on("click", ".screens", function() {
@@ -130,17 +136,23 @@
                     success: function(data) {
                         htmlString = "";
                         console.log(data);
-                        for (i = 0; i < data.length; i++) {
-                            htmlString += "<a href='#" + data[i] + "' class='list-group-item screens' data-toggle='collapse'>";
-                            htmlString += "<i class='fa fa-chevron-right'></i>" + data[i] + "</a>";
-                            htmlString += "<div class='list-group collapse pl-3' id='" + data[i] + "'></div>";
-                            // var padding = jQuery("#"  + data[i]).css('padding-left'); // get the padding
-                            // jQuery("#" + data[i]).css('padding-left', padding + 20);
+                        if (data[0]) {
+                            for (i = 0; i < data.length; i++) {
+                                htmlString += "<a href='#" + data[i] + "' class='list-group-item screens' data-toggle='collapse'>";
+                                htmlString += "<i class='fa fa-chevron-right'></i>" + data[i] + "</a>";
+                                htmlString += "<div class='list-group collapse pl-3' id='" + data[i] + "' style='background-color:#d4d4d459'></div>";
+                                // var padding = jQuery("#"  + data[i]).css('padding-left'); // get the padding
+                                // jQuery("#" + data[i]).css('padding-left', padding + 20);
+                            }
+                        } else {
+                            htmlString = "<a class='list-group-item screens' style='font-style:italic'>This screen has no parent.</a>";
                         }
-
                         jQuery("#" + item).html(htmlString);
                     }
                 });
+                jQuery('.fa', this)
+                .toggleClass('fa fa-chevron-right')
+                .toggleClass('fa fa-chevron-down');
             });
 
             jQuery.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
@@ -149,18 +161,3 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
 </html>
-
-<!-- //   ref
-// <a href="#item-1" class="list-group-item" data-toggle="collapse">
-//     <i class="fa fa-chevron-right"></i>Item 1
-// </a>
-// <div class="list-group collapse" id="item-1">
-//     <a href="#item-1-1" class="list-group-item" data-toggle="collapse">
-//        <i class="fa fa-chevron-right"></i>Item 1.1
-//     </a>
-//     <div class="list-group collapse" id="item-1-1">
-//        <a href="#" class="list-group-item">Item 1.1.1</a>
-//        <a href="#" class="list-group-item">Item 1.1.2</a>
-//        <a href="#" class="list-group-item">Item 1.1.3</a>
-//      </div>
-// </div> -->
