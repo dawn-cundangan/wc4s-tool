@@ -18,7 +18,6 @@
 
         <title>ScreenFlow</title>
         <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
-
     </head>
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -30,13 +29,9 @@
         <div class="container-fluid row p-5 mt-4 mx-0">
             <div class="container col-md-6 md-mr-0 mt-3">
                 <div class="row">
-                    <!--div class="active-cyan-4 mb-4 col-sm-10"-->
                     <div class="active-cyan-4 mb-4 col-sm-12">
                         <input class="form-control" type="text" placeholder="Enter keywords" aria-label="Search" id="search" name="search">
                     </div>
-                    <!--div class="container col-sm-2 px-0">
-                        <button type="button" class="btn btn-outline-info">Search</button>
-                    </div-->
                     <!-- <div class="px-3">
                         <a href="#" class="export pb-2">Export table data into Excel</a>               
                     </div> -->
@@ -57,15 +52,14 @@
                 </div>
             </div>
             <div class="container col-md-6 mt-3">
-                <div class="card" style="overflow-y:auto; min-height:84.5vh; max-height:84.5vh;">
+                <div class="card">
                     <div class="card-header py-0" id="heading">
-                        <h5 class="my-1" id="mainScreen">
+                        <p class="my-0 py-2" id="mainScreen">
                             Flow
-                        </h5>
+                        </p>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body scrollbar-near-moon-wide" style="overflow-y:auto; min-height:80vh; max-height:80vh;">
                         <div class="list-group list-group-root well" id="flowCard">
-
                         </div>
                     </div>
                 </div>
@@ -115,18 +109,36 @@
                     success: function(data) {
                         htmlString = "";
                         console.log(data);
-                        // htmlString = "<a href='#" + item + "' class='list-group-item' data-toggle='collapse'>";
-                        // htmlString += "<i class='fa fa-chevron-right'></i>" + item + "</a>";
-
-                        // htmlString += "<div class='list-group collapse' id='" + item + "'>";
                         for (i = 0; i < data.length; i++) {
-                            htmlString += "<a href='#" + data[i] + "' class='list-group-item' data-toggle='collapse'>";
+                            htmlString += "<a href='#" + data[i] + "' class='list-group-item screens' data-toggle='collapse'>";
                             htmlString += "<i class='fa fa-chevron-right'></i>" + data[i] + "</a>";
+                            htmlString += "<div class='list-group collapse pl-3' id='" + data[i] + "'></div>";
                         }
-                        htmlString += "</ul>";
 
                         jQuery('#mainScreen').html(item);
                         jQuery('#flowCard').html(htmlString);
+                    }
+                });
+            });
+
+            jQuery('#flowCard').on("click", ".screens", function() {
+                var item = jQuery(this).text();
+                jQuery.ajax ({
+                    type: 'get',
+                    url: '{{URL::to("openFile")}}',
+                    data: {'openFile':item},
+                    success: function(data) {
+                        htmlString = "";
+                        console.log(data);
+                        for (i = 0; i < data.length; i++) {
+                            htmlString += "<a href='#" + data[i] + "' class='list-group-item screens' data-toggle='collapse'>";
+                            htmlString += "<i class='fa fa-chevron-right'></i>" + data[i] + "</a>";
+                            htmlString += "<div class='list-group collapse pl-3' id='" + data[i] + "'></div>";
+                            // var padding = jQuery("#"  + data[i]).css('padding-left'); // get the padding
+                            // jQuery("#" + data[i]).css('padding-left', padding + 20);
+                        }
+
+                        jQuery("#" + item).html(htmlString);
                     }
                 });
             });
@@ -141,15 +153,14 @@
 <!-- //   ref
 // <a href="#item-1" class="list-group-item" data-toggle="collapse">
 //     <i class="fa fa-chevron-right"></i>Item 1
-//   </a>
-//   <div class="list-group collapse" id="item-1">
-    
+// </a>
+// <div class="list-group collapse" id="item-1">
 //     <a href="#item-1-1" class="list-group-item" data-toggle="collapse">
-//       <i class="fa fa-chevron-right"></i>Item 1.1
+//        <i class="fa fa-chevron-right"></i>Item 1.1
 //     </a>
 //     <div class="list-group collapse" id="item-1-1">
-//       <a href="#" class="list-group-item">Item 1.1.1</a>
-//       <a href="#" class="list-group-item">Item 1.1.2</a>
-//       <a href="#" class="list-group-item">Item 1.1.3</a>
-//     </div>
+//        <a href="#" class="list-group-item">Item 1.1.1</a>
+//        <a href="#" class="list-group-item">Item 1.1.2</a>
+//        <a href="#" class="list-group-item">Item 1.1.3</a>
+//      </div>
 // </div> -->
