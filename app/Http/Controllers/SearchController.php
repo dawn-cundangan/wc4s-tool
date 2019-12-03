@@ -9,6 +9,7 @@ ini_set('max_execution_time', '500');
 class SearchController extends Controller
 {
     public function index() {
+        //$this->rootToLeaf('S_Zoom_T.xml');
         return view('home');
     }
     
@@ -63,12 +64,34 @@ class SearchController extends Controller
                 array_push($finalOutput, $txt);
             }
         }
-        return $finalOutput;
-
         if(sizeof($fileArray)==0){
             array_push($finalOutput, "No parent");
         }
-        
         return $finalOutput;
+    }
+
+    function rootToLeaf(Request $request){
+        $filename=$request->root;
+        //$myfile = fopen("logs.txt", "w") or die("Unable to open file!");
+        $transitions=array();
+        $searchfor = 'Transition_Destination_Window';
+        header('Content-Type: text/plain');
+        $contents = Storage::disk('fileDisk')->get($filename);
+        $pattern = preg_quote($searchfor, '/');
+        $pattern = "/^.*$pattern.*\$/m";
+        if(preg_match_all($pattern, $contents, $matches)){
+            foreach($matches[0] as $filename){
+                $str1 = (explode('>',$filename,2));
+                $str2 = (explode('<',$str1[1],2));
+                $str2[0] .= ".xml";
+                array_push($transitions,$str2[0]);
+            }
+            //fwrite($myfile, print_r($transitions, TRUE));
+        }
+        else {
+            array_push($transitions, "No parent");
+            //fwrite($myfile, "No matches found");
+        }
+        //fclose($myfile);
     }
 }
