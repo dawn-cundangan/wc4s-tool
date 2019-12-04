@@ -132,9 +132,9 @@
                             htmlString = "<a class='list-group-item screens get-parent' style='font-style:italic'>File doesn't exist!</a>";
                         } else if (data[0]) {
                             for (i = 0; i < data.length; i++) {
-                                htmlString += "<a href='#parent" + data[i] + "' class='list-group-item screens get-parent' data-toggle='collapse'>";
+                                htmlString += "<a href='#" + data[i] + "' class='list-group-item screens get-parent' data-toggle='collapse'>";
                                 htmlString += "<i class='fa fa-chevron-right'></i>" + data[i] + "</a>";
-                                htmlString += "<div class='list-group collapse pl-3' id='parent" + data[i] + "' style='background-color:#d4d4d459'></div>";
+                                htmlString += "<div class='list-group collapse pl-3' id='" + data[i] + "' style='background-color:#d4d4d459'></div>";
                             }
                         } else {
                             htmlString = "<a class='list-group-item screens get-parent' style='font-style:italic'>This screen has no parent.</a>";
@@ -189,9 +189,9 @@
                             htmlString = "<a class='list-group-item screens get-parent' style='font-style:italic'>File doesn't exist!</a>";
                         } else if (data[0]) {
                             for (i = 0; i < data.length; i++) {
-                                htmlString += "<a href='#parent" + data[i] + "' class='list-group-item screens get-parent' data-toggle='collapse'>";
+                                htmlString += "<a href='#" + data[i] + "' class='list-group-item screens get-parent' data-toggle='collapse'>";
                                 htmlString += "<i class='fa fa-chevron-right'></i>" + data[i] + "</a>";
-                                htmlString += "<div class='list-group collapse pl-3' id='parent" + data[i] + "' style='background-color:#d4d4d459'></div>";
+                                htmlString += "<div class='list-group collapse pl-3' id='" + data[i] + "' style='background-color:#d4d4d459'></div>";
                             }
                         } else {
                             htmlString = "<a class='list-group-item screens get-parent' style='font-style:italic'>This screen has no parent.</a>";
