@@ -9,7 +9,6 @@ ini_set('max_execution_time', '500');
 class SearchController extends Controller
 {
     public function index() {
-        //$this->rootToLeaf('S_Zoom_T');
         return view('home');
     }
     
@@ -67,7 +66,7 @@ class SearchController extends Controller
         } else {
             array_push($finalOutput, "File doesn't exist.");
         }
-        return $finalOutput;
+        return array_values(array_unique($finalOutput));
     }
 
     function rootToLeaf(Request $request){
@@ -90,6 +89,6 @@ class SearchController extends Controller
         } else {
             array_push($transitions, "File doesn't exist.");
         }
-        return $transitions;
+        return array_values(array_unique($transitions));
     }
 }
