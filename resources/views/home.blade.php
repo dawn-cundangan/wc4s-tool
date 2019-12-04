@@ -62,7 +62,7 @@
                             </p>
                         </div>
                         <div id="collapseParent" class="collapse show" aria-labelledby="parentHeading" data-parent="#screenAccordion">
-                            <div class="card-body scrollbar-near-moon-wide" style="overflow-y:auto; min-height:75vh; max-height:75vh; background-color:#ebebeb3b;">
+                            <div class="card-body scrollbar-near-moon-wide my-1" style="overflow-y:auto; min-height:75vh; max-height:75vh; background-color:#ebebeb3b;">
                                 <div class="list-group list-group-root well" id="getParentFlow">
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                             </p>
                         </div>
                         <div id="collapseChild" class="collapse" aria-labelledby="childHeading" data-parent="#screenAccordion">
-                            <div class="card-body scrollbar-near-moon-wide" style="overflow-y:auto; min-height:75vh; max-height:75vh; background-color:#ebebeb3b;">
+                            <div class="card-body scrollbar-near-moon-wide my-1" style="overflow-y:auto; min-height:75vh; max-height:75vh; background-color:#ebebeb3b;">
                                 <div class="list-group list-group-root well" id="getChildFlow">
                                 </div>
                             </div>
