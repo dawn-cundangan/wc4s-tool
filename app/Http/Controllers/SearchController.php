@@ -37,6 +37,7 @@ class SearchController extends Controller
         }
     }
 
+    // Function for getting the parent of the input screen ID.
     function leafToRoot(Request $request) {   
         $filename = $request->leafToRoot;
         $searchfor = '<Transition_Destination_Window>'.$filename;
@@ -68,17 +69,20 @@ class SearchController extends Controller
         }
         return array_values(array_unique($finalOutput));
     }
-
+    
+    // Function for getting the child of the input screen ID.
     function rootToLeaf(Request $request){
         $filename = $request->rootToLeaf;
         $filename .= ".xml";
         $transitions = array();
         $searchfor = 'Transition_Destination_Window';
         header('Content-Type: text/plain');
+        // Check if the file does exist in the source folder.
         if (Storage::disk('fileDisk')->exists($filename)){
             $contents = Storage::disk('fileDisk')->get($filename);
             $pattern = preg_quote($searchfor, '/');
             $pattern = "/^.*$pattern.*\$/m";
+            //Find all the screens that matches the given pattern.
             if(preg_match_all($pattern, $contents, $matches)){
                 foreach($matches[0] as $filename){
                     $str1 = (explode('>', $filename,2));
