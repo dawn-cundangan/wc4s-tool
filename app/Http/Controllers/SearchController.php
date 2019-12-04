@@ -39,7 +39,6 @@ class SearchController extends Controller
     }
 
     function leafToRoot(Request $request) {   
-        $finalTree = array();
         $filename = $request->leafToRoot;
         $searchfor = '<Transition_Destination_Window>'.$filename;
 
@@ -51,7 +50,7 @@ class SearchController extends Controller
         $fileArray = array();
         $finalOutput = array();
         $id = 0;
-        $filename.=".xml";
+        $filename .= ".xml";
         if(Storage::disk('fileDisk')->exists($filename)){
             // go through all the files in the folder as $file
             foreach (Storage::disk('fileDisk')->files() as $file) {
@@ -65,32 +64,30 @@ class SearchController extends Controller
                     array_push($finalOutput, $txt);
                 }
             }
-        }
-        else{
+        } else {
             array_push($finalOutput, "File doesn't exist.");
         }
         return $finalOutput;
     }
 
     function rootToLeaf(Request $request){
-        $filename=$request->root;
-        $filename.=".xml";
-        $transitions=array();
+        $filename = $request->rootToLeaf;
+        $filename .= ".xml";
+        $transitions = array();
         $searchfor = 'Transition_Destination_Window';
         header('Content-Type: text/plain');
-        if(Storage::disk('fileDisk')->exists($filename)){
-        $contents = Storage::disk('fileDisk')->get($filename);
-        $pattern = preg_quote($searchfor, '/');
-        $pattern = "/^.*$pattern.*\$/m";
+        if (Storage::disk('fileDisk')->exists($filename)){
+            $contents = Storage::disk('fileDisk')->get($filename);
+            $pattern = preg_quote($searchfor, '/');
+            $pattern = "/^.*$pattern.*\$/m";
             if(preg_match_all($pattern, $contents, $matches)){
                 foreach($matches[0] as $filename){
-                    $str1 = (explode('>',$filename,2));
-                    $str2 = (explode('<',$str1[1],2));
-                    array_push($transitions,$str2[0]);
+                    $str1 = (explode('>', $filename,2));
+                    $str2 = (explode('<', $str1[1],2));
+                    array_push($transitions, $str2[0]);
                 }
             }
-        }
-        else{
+        } else {
             array_push($transitions, "File doesn't exist.");
         }
         return $transitions;
