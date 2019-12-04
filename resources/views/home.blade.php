@@ -32,9 +32,6 @@
                     <div class="active-cyan-4 mb-4 col-sm-12">
                         <input class="form-control" type="text" placeholder="Enter keywords" aria-label="Search" id="search" name="search">
                     </div>
-                    <!-- <div class="px-3">
-                        <a href="#" class="export pb-2">Export table data into Excel</a>               
-                    </div> -->
                 </div>
                 <div class="container scrollbar-near-moon-wide p-0 sm-mb-5 md-mb-0" id="resultsDiv" style="overflow-y:auto; max-height:78vh;">
                     <label id="loading">Loading results...</label>
@@ -122,7 +119,7 @@
             })
             
             jQuery('table.cont').on("click", "td.filename", function() {
-                var item = jQuery(this).text(); // Retrieves the text within <td>
+                var item = jQuery(this).text(); 
                 /* Leaf to root: Get parent */
                 jQuery.ajax ({
                     type: 'get',
@@ -135,9 +132,9 @@
                             htmlString = "<a class='list-group-item screens get-parent' style='font-style:italic'>File doesn't exist!</a>";
                         } else if (data[0]) {
                             for (i = 0; i < data.length; i++) {
-                                htmlString += "<a href='#" + data[i] + "' class='list-group-item screens get-parent' data-toggle='collapse'>";
+                                htmlString += "<a href='#parent" + data[i] + "' class='list-group-item screens get-parent' data-toggle='collapse'>";
                                 htmlString += "<i class='fa fa-chevron-right'></i>" + data[i] + "</a>";
-                                htmlString += "<div class='list-group collapse pl-3' id='" + data[i] + "' style='background-color:#d4d4d459'></div>";
+                                htmlString += "<div class='list-group collapse pl-3' id='parent" + data[i] + "' style='background-color:#d4d4d459'></div>";
                             }
                         } else {
                             htmlString = "<a class='list-group-item screens get-parent' style='font-style:italic'>This screen has no parent.</a>";
@@ -192,9 +189,9 @@
                             htmlString = "<a class='list-group-item screens get-parent' style='font-style:italic'>File doesn't exist!</a>";
                         } else if (data[0]) {
                             for (i = 0; i < data.length; i++) {
-                                htmlString += "<a href='#" + data[i] + "' class='list-group-item screens get-parent' data-toggle='collapse'>";
+                                htmlString += "<a href='#parent" + data[i] + "' class='list-group-item screens get-parent' data-toggle='collapse'>";
                                 htmlString += "<i class='fa fa-chevron-right'></i>" + data[i] + "</a>";
-                                htmlString += "<div class='list-group collapse pl-3' id='" + data[i] + "' style='background-color:#d4d4d459'></div>";
+                                htmlString += "<div class='list-group collapse pl-3' id='parent" + data[i] + "' style='background-color:#d4d4d459'></div>";
                             }
                         } else {
                             htmlString = "<a class='list-group-item screens get-parent' style='font-style:italic'>This screen has no parent.</a>";
@@ -237,7 +234,6 @@
 
             jQuery.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
         </script>
-        <script src="{{ asset('js/display.js') }}"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
 </html>
