@@ -52,14 +52,35 @@
                 </div>
             </div>
             <div class="container col-md-6 mt-3">
-                <div class="card">
-                    <div class="card-header py-0" id="heading">
-                        <p class="my-0 py-2" id="mainScreen">
-                            Flow
-                        </p>
+                <div class="accordion" id="screenAccordion">
+                    <div class="card">
+                        <div class="card-header py-0" id="parentHeading">
+                            <p class="my-0 py-0" id="getParentScreenTitle">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseParent" aria-expanded="true" aria-controls="collapseParent">
+                                    Parents
+                                </button>
+                            </p>
+                        </div>
+                        <div id="collapseParent" class="collapse show" aria-labelledby="parentHeading" data-parent="#screenAccordion">
+                            <div class="card-body scrollbar-near-moon-wide" style="overflow-y:auto; min-height:75vh; max-height:75vh; background-color:#ebebeb3b;">
+                                <div class="list-group list-group-root well" id="getParentFlow">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body scrollbar-near-moon-wide" style="overflow-y:auto; min-height:80vh; max-height:80vh; background-color:#ebebeb3b;">
-                        <div class="list-group list-group-root well" id="flowCard">
+                    <div class="card">
+                        <div class="card-header py-0" id="childHeading">
+                            <p class="my-0 py-0" id="getChildScreenTitle">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseChild" aria-expanded="false" aria-controls="collapseChild">
+                                    Children
+                                </button>
+                            </p>
+                        </div>
+                        <div id="collapseChild" class="collapse" aria-labelledby="childHeading" data-parent="#screenAccordion">
+                            <div class="card-body scrollbar-near-moon-wide" style="overflow-y:auto; min-height:75vh; max-height:75vh; background-color:#ebebeb3b;">
+                                <div class="list-group list-group-root well" id="getChildFlow">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -102,6 +123,7 @@
             
             jQuery('table.cont').on("click", "td.filename", function() {
                 var item = jQuery(this).text(); // Retrieves the text within <td>
+                /* Leaf to root: Get parent */
                 jQuery.ajax ({
                     type: 'get',
                     url: '{{URL::to("leafToRoot")}}',
@@ -109,19 +131,46 @@
                     success: function(data) {
                         htmlString = "";
                         console.log(data);
-                        if (data[0]) {
+                        if (data[0] == "File doesn't exist.") {
+                            htmlString = "<a class='list-group-item screens get-parent' style='font-style:italic'>File doesn't exist!</a>";
+                        } else if (data[0]) {
                             for (i = 0; i < data.length; i++) {
-                                htmlString += "<a href='#" + data[i] + "' class='list-group-item screens' data-toggle='collapse'>";
+                                htmlString += "<a href='#" + data[i] + "' class='list-group-item screens get-parent' data-toggle='collapse'>";
                                 htmlString += "<i class='fa fa-chevron-right'></i>" + data[i] + "</a>";
                                 htmlString += "<div class='list-group collapse pl-3' id='" + data[i] + "' style='background-color:#d4d4d459'></div>";
                             }
-                        } else if (data[0] == "File doesn't exist.") {
-                            htmlString = "<a class='list-group-item screens' style='font-style:italic'>File doesn't exist!</a>";
                         } else {
-                            htmlString = "<a class='list-group-item screens' style='font-style:italic'>This screen has no parent.</a>";
+                            htmlString = "<a class='list-group-item screens get-parent' style='font-style:italic'>This screen has no parent.</a>";
                         }
-                        jQuery('#mainScreen').html(item);
-                        jQuery('#flowCard').html(htmlString);
+                        title = "<button class='btn btn-link' type='button' data-toggle='collapse' data-target='#collapseParent' aria-expanded='true' aria-controls='collapseParent'>";
+                        title += item + " Parents </button>";
+                        jQuery('#getParentScreenTitle').html(title);
+                        jQuery('#getParentFlow').html(htmlString);
+                    }
+                });
+                /* Root to Leaf: Get child */
+                jQuery.ajax ({
+                    type: 'get',
+                    url: '{{URL::to("rootToLeaf")}}',
+                    data: {'rootToLeaf':item},
+                    success: function(data) {
+                        htmlString = "";
+                        console.log(data);
+                        if (data[0] == "File doesn't exist.") {
+                            htmlString = "<a class='list-group-item screens get-child' style='font-style:italic'>File doesn't exist!</a>";
+                        } else if (data[0]) {
+                            for (i = 0; i < data.length; i++) {
+                                htmlString += "<a href='#" + data[i] + "' class='list-group-item screens get-child' data-toggle='collapse'>";
+                                htmlString += "<i class='fa fa-chevron-right'></i>" + data[i] + "</a>";
+                                htmlString += "<div class='list-group collapse pl-3' id='" + data[i] + "' style='background-color:#d4d4d459'></div>";
+                            }
+                        } else {
+                            htmlString = "<a class='list-group-item screens get-child' style='font-style:italic'>This screen has no child.</a>";
+                        }
+                        title = "<button class='btn btn-link collapsed' type='button' data-toggle='collapse' data-target='#collapseChild' aria-expanded='false' aria-controls='collapseChild'>";
+                        title += item + " Children </button>";
+                        jQuery('#getChildScreenTitle').html(title);
+                        jQuery('#getChildFlow').html(htmlString);
                     }
                 });
                 jQuery('.fa', this)
@@ -129,7 +178,8 @@
                 .toggleClass('fa fa-chevron-down');
             });
 
-            jQuery('#flowCard').on("click", ".screens", function() {
+            /* Leaf to root: Get parent */
+            jQuery('#getParentFlow').on("click", ".get-parent", function() {
                 var item = jQuery(this).text();
                 jQuery.ajax ({
                     type: 'get',
@@ -138,16 +188,44 @@
                     success: function(data) {
                         htmlString = "";
                         console.log(data);
-                        if (data[0]) {
+                        if (data[0] == "File doesn't exist.") {
+                            htmlString = "<a class='list-group-item screens get-parent' style='font-style:italic'>File doesn't exist!</a>";
+                        } else if (data[0]) {
                             for (i = 0; i < data.length; i++) {
-                                htmlString += "<a href='#" + data[i] + "' class='list-group-item screens' data-toggle='collapse'>";
+                                htmlString += "<a href='#" + data[i] + "' class='list-group-item screens get-parent' data-toggle='collapse'>";
                                 htmlString += "<i class='fa fa-chevron-right'></i>" + data[i] + "</a>";
                                 htmlString += "<div class='list-group collapse pl-3' id='" + data[i] + "' style='background-color:#d4d4d459'></div>";
                             }
-                        } else if (data[0] == "File doesn't exist.") {
-                            htmlString = "<a class='list-group-item screens' style='font-style:italic'>File doesn't exist!</a>";
                         } else {
-                            htmlString = "<a class='list-group-item screens' style='font-style:italic'>This screen has no parent.</a>";
+                            htmlString = "<a class='list-group-item screens get-parent' style='font-style:italic'>This screen has no parent.</a>";
+                        }
+                        jQuery("#" + item).html(htmlString);
+                    }
+                });
+                jQuery('.fa', this)
+                .toggleClass('fa fa-chevron-right')
+                .toggleClass('fa fa-chevron-down');
+            });
+            /* Root to Leaf: Get child */
+            jQuery('#getChildFlow').on("click", ".get-child", function() {
+                var item = jQuery(this).text();
+                jQuery.ajax ({
+                    type: 'get',
+                    url: '{{URL::to("rootToLeaf")}}',
+                    data: {'rootToLeaf':item},
+                    success: function(data) {
+                        htmlString = "";
+                        console.log(data);
+                        if (data[0] == "File doesn't exist.") {
+                            htmlString = "<a class='list-group-item screens get-child' style='font-style:italic'>File doesn't exist!</a>";
+                        } else if (data[0]) {
+                            for (i = 0; i < data.length; i++) {
+                                htmlString += "<a href='#" + data[i] + "' class='list-group-item screens get-child' data-toggle='collapse'>";
+                                htmlString += "<i class='fa fa-chevron-right'></i>" + data[i] + "</a>";
+                                htmlString += "<div class='list-group collapse pl-3' id='" + data[i] + "' style='background-color:#d4d4d459'></div>";
+                            }
+                        } else {
+                            htmlString = "<a class='list-group-item screens get-child' style='font-style:italic'>This screen has no child.</a>";
                         }
                         jQuery("#" + item).html(htmlString);
                     }
