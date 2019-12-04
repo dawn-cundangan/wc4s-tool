@@ -52,9 +52,6 @@
                 </div>
             </div>
             <div class="container col-md-6 mt-3">
-            <button type="button" id="rtl">RTL</button>
-            <button type="button" id="ltr">LTR</button>
-            <input type="hidden" id="stateFunction">
                 <div class="card">
                     <div class="card-header py-0" id="heading">
                         <p class="my-0 py-2" id="mainScreen">
@@ -76,14 +73,6 @@
             jQuery("#table").hide();
             jQuery("#loading").hide();
             jQuery("#noResults").hide();
-            jQuery('#rtl').on('click', function() {
-                $("#stateFunction").val("openFile");
-                
-            })
-            jQuery('#ltr').on('click', function() {
-                $("#stateFunction").val("rootToLeaf");
-                
-            })
             jQuery('#search').on('keyup', function() {
                 $value = jQuery(this).val();
                 jQuery.ajax ({
