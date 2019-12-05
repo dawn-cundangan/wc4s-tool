@@ -6,8 +6,10 @@
         <meta name="_token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
+        <!-- CSS -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    
+
+        <!-- JavaScript and JQuery -->
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/jquery-ui.min.js') }}"></script>     
         <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
@@ -16,23 +18,25 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <title>ScreenFlow</title>
+        <title> ScreenFlow </title>
         <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
     </head>
     <body>
+        <!-- Navbar -->
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
             <a class="navbar-brand light" href="#">
                 <img src="{{asset('favicon.png')}}" width="30" height="30" class="d-inline-block align-top mr-2" alt="">
                 ScreenFlow
             </a>
         </nav>
+        <!-- Body -->
         <div class="container-fluid row p-5 mt-4 mx-0">
             <div class="container col-md-6 md-mr-0 mt-3">
-                <div class="row">
-                    <div class="active-cyan-4 mb-4 col-sm-12">
-                        <input class="form-control" type="text" placeholder="Enter keywords" aria-label="Search" id="search" name="search">
-                    </div>
+                <!-- Search bar -->
+                <div class="active-cyan-4 mb-4 px-0 col-sm-12">
+                    <input class="form-control" type="text" placeholder="Enter keywords" aria-label="Search" id="search" name="search">
                 </div>
+                <!-- Results table -->
                 <div class="container scrollbar-near-moon-wide p-0 sm-mb-5 md-mb-0" id="resultsDiv" style="overflow-y:auto; max-height:78vh;">
                     <label id="loading">Loading results...</label>
                     <label id="noResults">No results found!</label>
@@ -49,7 +53,9 @@
                 </div>
             </div>
             <div class="container col-md-6 mt-3">
+                <!-- Accordion -->
                 <div class="accordion" id="screenAccordion">
+                    <!-- Card for screen parent results -->
                     <div class="card">
                         <div class="card-header py-0" id="parentHeading">
                             <p class="my-0 py-0" id="getParentScreenTitle">
@@ -65,6 +71,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Card for screen children results -->
                     <div class="card">
                         <div class="card-header py-0" id="childHeading">
                             <p class="my-0 py-0" id="getChildScreenTitle">
@@ -113,14 +120,14 @@
                             jQuery("#loading").hide();
                             jQuery("#table").show();
                         }
-                        
                     }
                 });
             })
             
+            /* Get parents and children of a sceen on-click of a td in the results table */
             jQuery('table.cont').on("click", "td.filename", function() {
                 var item = jQuery(this).text(); 
-                /* Leaf to root: Get parent */
+                /* Leaf to root: Get parents */
                 jQuery.ajax ({
                     type: 'get',
                     url: '{{URL::to("leafToRoot")}}',
@@ -175,9 +182,10 @@
                 .toggleClass('fa fa-chevron-down');
             });
 
-            /* Leaf to root: Get parent */
+            /* Leaf to root: Get parent of a sceen on-click of a list-group in the results accordion */
             jQuery('#getParentFlow').on("click", ".get-parent", function() {
                 var item = jQuery(this).text();
+                jQuery('.fa', this).toggleClass('fa fa-chevron-right').toggleClass('fa fa-chevron-down');
                 jQuery.ajax ({
                     type: 'get',
                     url: '{{URL::to("leafToRoot")}}',
@@ -199,13 +207,12 @@
                         jQuery("#" + item).html(htmlString);
                     }
                 });
-                jQuery('.fa', this)
-                .toggleClass('fa fa-chevron-right')
-                .toggleClass('fa fa-chevron-down');
             });
-            /* Root to Leaf: Get child */
+            
+            /* Root to Leaf: Get child of a sceen on-click of a list-group in the results accordion */
             jQuery('#getChildFlow').on("click", ".get-child", function() {
                 var item = jQuery(this).text();
+                jQuery('.fa', this).toggleClass('fa fa-chevron-right').toggleClass('fa fa-chevron-down');
                 jQuery.ajax ({
                     type: 'get',
                     url: '{{URL::to("rootToLeaf")}}',
@@ -227,13 +234,9 @@
                         jQuery("#" + item).html(htmlString);
                     }
                 });
-                jQuery('.fa', this)
-                .toggleClass('fa fa-chevron-right')
-                .toggleClass('fa fa-chevron-down');
             });
 
             jQuery.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
         </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
 </html>
