@@ -1,0 +1,6 @@
+S_OrgPaperFinishing_I_OriginalOrientation
+S_BatesStamp_I_DateFormat
+S_BatesStamp_I_Numbering
+S_BatesStamp_I_Position
+S_BatesStamp_I_Font
+S_OrgPaperFinishing_I_OriginalOrientation

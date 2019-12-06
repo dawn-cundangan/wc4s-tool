@@ -9,6 +9,7 @@ ini_set('max_execution_time', '500');
 class SearchController extends Controller
 {
     public function index() {
+        $this->checkXMLCond("S_BatesStamp_D");
         return view('home');
     }
     
@@ -94,5 +95,37 @@ class SearchController extends Controller
             array_push($transitions, "File doesn't exist.");
         }
         return array_values(array_unique($transitions));
+    }
+
+    function checkXMLCond($filename){
+        $resultfile = fopen("finalResults.txt", "w") or die("Unable to open file!");
+        $filename .= ".xml";
+        if (Storage::disk('fileDisk')->exists($filename)){
+            $contents = Storage::disk('fileDisk')->get($filename);
+            $dom = new \DOMDocument;
+            $dom->loadXML($contents);
+            $books = $dom->getElementsByTagName('Behavior');
+            foreach ($books as $book) {
+                if($book->getElementsByTagName('Behavior_Type')->item(0)->nodeValue==5){
+                    fwrite($resultfile,$book->getElementsByTagName('Transition_Destination_Window')->item(0)->nodeValue);
+                    fwrite($resultfile,"\n");
+                }
+                else if($book->getElementsByTagName('Behavior_Type')->item(0)->nodeValue==6){
+                    
+                    if(!$book->getElementsByTagName('Transition_Kind')->item(0)){
+                        fwrite($resultfile,$book->getElementsByTagName('Transition_Destination_Window')->item(0)->nodeValue);
+                        fwrite($resultfile,"\n");
+                    }
+                    else if($book->getElementsByTagName('Transition_Kind')->item(0)->nodeValue=='open'){
+                        fwrite($resultfile,"\nValue:");
+                        fwrite($resultfile,$book->getElementsByTagName('Transition_Kind')->item(0)->nodeValue);
+                        fwrite($resultfile,$book->getElementsByTagName('Transition_Destination_Window')->item(0)->nodeValue);
+                        fwrite($resultfile,"\n");
+                    }
+                }
+            }
+        }
+        fclose($resultfile);
+
     }
 }
