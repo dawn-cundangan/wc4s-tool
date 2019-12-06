@@ -35,6 +35,11 @@ td {
 }
 
 /* Screen list groups */
+#parentHeading p button {
+	overflow-wrap: break-word;
+	max-width: 100%;
+}
+
 .screens {
 	color: #000000d9;
 }

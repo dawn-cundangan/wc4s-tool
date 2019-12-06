@@ -91,10 +91,12 @@
             </div>
         </div>
         <script>
+            /* Load source data */
             jQuery.get("file:///C:/Users/z000044455/Desktop/Source/", function(data) {
                 jQuery(".resultsDiv").append(data);
             });
 
+            /* Load search results in table form */
             jQuery("#table").hide();
             jQuery("#loading").hide();
             jQuery("#noResults").hide();

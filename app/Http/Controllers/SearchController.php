@@ -57,7 +57,7 @@ class SearchController extends Controller
             foreach (Storage::disk('fileDisk')->files() as $file) {
                 // retrieve the content of each file $file
                 $contents = Storage::disk('fileDisk')->get($file);
-
+                
                 if (preg_match_all($pattern, $contents, $matches)){
                     array_push($fileArray, $file);
                     $id += 1;
@@ -79,13 +79,13 @@ class SearchController extends Controller
         $searchfor = 'Transition_Destination_Window';
         header('Content-Type: text/plain');
         // Check if the file does exist in the source folder.
-        if (Storage::disk('fileDisk')->exists($filename)){
+        if (Storage::disk('fileDisk')->exists($filename)) {
             $contents = Storage::disk('fileDisk')->get($filename);
             $pattern = preg_quote($searchfor, '/');
             $pattern = "/^.*$pattern.*\$/m";
             //Find all the screens that matches the given pattern.
-            if(preg_match_all($pattern, $contents, $matches)){
-                foreach($matches[0] as $filename){
+            if(preg_match_all($pattern, $contents, $matches)) {
+                foreach($matches[0] as $filename) {
                     $str1 = (explode('>', $filename,2));
                     $str2 = (explode('<', $str1[1],2));
                     array_push($transitions, $str2[0]);
