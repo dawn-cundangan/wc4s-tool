@@ -9,14 +9,15 @@ ini_set('max_execution_time', '500');
 class SearchController extends Controller
 {
     public function index() {
-        $this->checkXMLCond("S_BatesStamp_D");
+        $this->generateRootToLeaf("S_BatesStamp_D");
+        $this->generateLeafToRoot("S_BatesStamp_T_BoxPrint");
         return view('home');
     }
     
     // Function for searching the input screen ID from the source files.
     function search(Request $request) {   
         if ($request->ajax()) {
-            $output="";
+            $output = "";
             $number = 1;
 
             // Will go through all the files inside the source folder.
@@ -52,7 +53,7 @@ class SearchController extends Controller
         $finalOutput = array();
         $id = 0;
         $filename .= ".xml";
-        if(Storage::disk('fileDisk')->exists($filename)){
+        if (Storage::disk('fileDisk')->exists($filename)){
             // go through all the files in the folder as $file
             foreach (Storage::disk('fileDisk')->files() as $file) {
                 // retrieve the content of each file $file
@@ -97,8 +98,8 @@ class SearchController extends Controller
         return array_values(array_unique($transitions));
     }
 
-    function checkXMLCond($filename){
-        $resultfile = fopen("finalResults.txt", "w") or die("Unable to open file!");
+    function generateRootToLeaf($filename){
+        $resultfile = fopen("rootToLeaf.txt", "w") or die("Unable to open file!");
         $filename .= ".xml";
         if (Storage::disk('fileDisk')->exists($filename)){
             $contents = Storage::disk('fileDisk')->get($filename);
@@ -106,17 +107,14 @@ class SearchController extends Controller
             $dom->loadXML($contents);
             $books = $dom->getElementsByTagName('Behavior');
             foreach ($books as $book) {
-                if($book->getElementsByTagName('Behavior_Type')->item(0)->nodeValue==5){
+                if ($book->getElementsByTagName('Behavior_Type')->item(0)->nodeValue==5) {
                     fwrite($resultfile,$book->getElementsByTagName('Transition_Destination_Window')->item(0)->nodeValue);
                     fwrite($resultfile,"\n");
-                }
-                else if($book->getElementsByTagName('Behavior_Type')->item(0)->nodeValue==6){
-                    
-                    if(!$book->getElementsByTagName('Transition_Kind')->item(0)){
+                } else if ($book->getElementsByTagName('Behavior_Type')->item(0)->nodeValue==6) {
+                    if (!$book->getElementsByTagName('Transition_Kind')->item(0)){
                         fwrite($resultfile,$book->getElementsByTagName('Transition_Destination_Window')->item(0)->nodeValue);
                         fwrite($resultfile,"\n");
-                    }
-                    else if($book->getElementsByTagName('Transition_Kind')->item(0)->nodeValue=='open'){
+                    } else if ($book->getElementsByTagName('Transition_Kind')->item(0)->nodeValue=='open') {
                         fwrite($resultfile,"\nValue:");
                         fwrite($resultfile,$book->getElementsByTagName('Transition_Kind')->item(0)->nodeValue);
                         fwrite($resultfile,$book->getElementsByTagName('Transition_Destination_Window')->item(0)->nodeValue);
@@ -126,6 +124,48 @@ class SearchController extends Controller
             }
         }
         fclose($resultfile);
+    }
 
+    function generateLeafToRoot($filename) {
+        $resultfile = fopen("leafToRoot.txt", "w") or die("Unable to open file!");
+        $name = $filename;
+        $filename .= ".xml";
+
+        if (Storage::disk('fileDisk')->exists($filename)){
+            foreach (Storage::disk('fileDisk')->files() as $file) {
+                $contents = Storage::disk('fileDisk')->get($file);
+                $filename = trim($file,'.xml');
+                if ($contents != NULL) {
+                    $dom = new \DOMDocument();
+                    libxml_use_internal_errors(true);
+                    $dom->loadXML($contents);
+                    libxml_clear_errors();
+                    $books = $dom->getElementsByTagName('Behavior');
+                    foreach ($books as $book) {
+                        if($book->getElementsByTagName('Behavior_Type')->item(0)->nodeValue==5){
+                            if($book->getElementsByTagName('Transition_Destination_Window')->item(0) && $book->getElementsByTagName('Transition_Destination_Window')->item(0)->nodeValue == $name) {
+                                fwrite($resultfile,$filename);
+                                fwrite($resultfile,"\n");
+                            }
+                        } else if($book->getElementsByTagName('Behavior_Type')->item(0)->nodeValue==6){
+                            if(!$book->getElementsByTagName('Transition_Kind')->item(0) && $book->getElementsByTagName('Transition_Destination_Window')->item(0)){
+                                if($book->getElementsByTagName('Transition_Destination_Window')->item(0)->nodeValue == $name) {
+                                    fwrite($resultfile,$filename);
+                                    fwrite($resultfile,"\n");
+                                }
+                            } else if($book->getElementsByTagName('Transition_Destination_Window')->item(0) && $book->getElementsByTagName('Transition_Kind')->item(0)->nodeValue=='open'){
+                                if($book->getElementsByTagName('Transition_Destination_Window')->item(0)->nodeValue == $name) {
+                                    fwrite($resultfile,"\nValue:");
+                                    fwrite($resultfile,$book->getElementsByTagName('Transition_Kind')->item(0)->nodeValue);
+                                    fwrite($resultfile,$filename);
+                                    fwrite($resultfile,"\n");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        fclose($resultfile);
     }
 }
